@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Relatório de Vendas{% endblock %}
+
+{% block content %}
+<h1>Relatório de Vendas</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Cliente</th>
+        <th>Data da Venda</th>
+        <th>Valor</th>
+        <th>Ações</th>
+    </tr>
+    {% for venda in vendas %}
+    <tr>
+        <td>{{ venda.id }}</td>
+        <td>{{ venda.cliente_nome }}</td>
+        <td>{{ venda.data_venda }}</td>
+        <td>{{ venda.valor }}</td>
+        <td>
+            {% if session.role == 'admin' %}
+            <form action="/editarvenda/{{ venda.id }}" method="post" style="display:inline;">
+                <input type="date" name="data_venda" value="{{ venda.data_venda }}" required>
+                <input type="number" step="0.01" name="valor" value="{{ venda.valor }}" required>
+                <input type="submit" value="Salvar">
+            </form>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<!-- Botão para voltar à página de relatórios -->
+<a href="{{ url_for('relatorios') }}" class="btn-voltar">
+    Voltar para Relatórios
+</a>
+{% endblock %}

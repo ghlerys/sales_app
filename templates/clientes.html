@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Clientes{% endblock %}
+
+{% block content %}
+<h1>Clientes</h1>
+
+<h2>Lista de Clientes</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Tipo</th>
+        <th>Data de Criação</th>
+        <th>Ações</th>
+    </tr>
+    {% for cliente in clientes %}
+    <tr>
+        <td>{{ cliente.id }}</td>
+        <td>{{ cliente.nome }}</td>
+        <td>{{ cliente.tipo }}</td>
+        <td>{{ cliente.data_criacao }}</td>
+        <td>
+            {% if session.role == 'admin' %}
+            <form action="/editarcliente/{{ cliente.id }}" method="post" style="display:inline;">
+                <input type="text" name="nome" value="{{ cliente.nome }}" required>
+                <select name="tipo" required>
+                    <option value="VIP1" {% if cliente.tipo == 'VIP1' %}selected{% endif %}>VIP1</option>
+                    <option value="VIP2" {% if cliente.tipo == 'VIP2' %}selected{% endif %}>VIP2</option>
+                    <option value="COMUM" {% if cliente.tipo == 'COMUM' %}selected{% endif %}>COMUM</option>
+                </select>
+                <input type="submit" value="Salvar">
+            </form>
+            <form action="/excluircliente/{{ cliente.id }}" method="post" style="display:inline;">
+                <input type="submit" value="Excluir">
+            </form>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+<p></p><a href="/novocliente">Novo Cliente</a>
+{% endblock %}

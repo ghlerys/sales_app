@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Venda{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Editar Venda</h1>
+    <form action="/editarvenda/{{ venda.id }}" method="post" class="form-container">
+        <div class="form-group">
+            <label for="data_venda">Data da Venda:</label>
+            <input type="date" id="data_venda" name="data_venda" value="{{ venda.data_venda }}" required>
+        </div>
+        <div class="form-group">
+            <label for="valor">Valor:</label>
+            <input type="number" step="0.01" id="valor" name="valor" value="{{ venda.valor }}" required>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Salvar" class="btn-submit">
+        </div>
+    </form>
+</div>
+{% endblock %}

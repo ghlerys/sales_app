@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Adicione o Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="{{ url_for('inicio') }}">Início</a>
+        
+        <!-- Mova o user-menu e o logout-form para o mesmo container -->
+        <div class="navbar-right">
+            <div class="user-menu">
+                <div class="user-icon" onclick="toggleDropdown()">
+                    <i class="fas fa-user"></i> <!-- Ícone de usuário -->
+                    <span class="username">{{ session.get('username', 'Visitante') }}</span>
+                </div>
+                <div class="dropdown-content" id="dropdownMenu">
+                    <a href="{{ url_for('perfil') }}">Perfil</a>
+                    <a href="{{ url_for('alterar_senha') }}">Alterar Senha</a>
+                </div>
+            </div>
+            <form action="{{ url_for('logout') }}" method="post" class="logout-form">
+                <!-- Removido o campo csrf_token -->
+                <input type="submit" value="Sair" class="btn-logout">
+            </form>
+        </div>
+    </div>
+
+    <!-- Conteúdo da página -->
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Script para o dropdown -->
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById("dropdownMenu");
+            dropdown.classList.toggle("show");
+        }
+
+        // Fechar o dropdown se o usuário clicar fora dele
+        window.onclick = function(event) {
+            if (!event.target.matches('.user-icon') && !event.target.matches('.username')) {
+                const dropdowns = document.getElementsByClassName("dropdown-content");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    const openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

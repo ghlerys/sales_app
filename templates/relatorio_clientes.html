@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Relatório de Clientes{% endblock %}
+
+{% block content %}
+<h1>Relatório de Clientes</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Tipo</th>
+        <th>Data de Criação</th>
+        <th>Ações</th>
+    </tr>
+    {% for cliente in clientes %}
+    <tr>
+        <td>{{ cliente.id }}</td>
+        <td>{{ cliente.nome }}</td>
+        <td>{{ cliente.tipo }}</td>
+        <td>{{ cliente.data_criacao }}</td>
+        <td>
+            {% if session.role == 'admin' %}
+            <form action="/editarcliente/{{ cliente.id }}" method="post" style="display:inline;">
+                <input type="text" name="nome" value="{{ cliente.nome }}" required>
+                <select name="tipo" required>
+                    <option value="VIP1" {% if cliente.tipo == 'VIP1' %}selected{% endif %}>VIP1</option>
+                    <option value="VIP2" {% if cliente.tipo == 'VIP2' %}selected{% endif %}>VIP2</option>
+                    <option value="COMUM" {% if cliente.tipo == 'COMUM' %}selected{% endif %}>COMUM</option>
+                </select>
+                <input type="submit" value="Salvar">
+            </form>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<!-- Botão para voltar à página de relatórios -->
+<a href="{{ url_for('relatorios') }}" class="btn-voltar">
+    Voltar para Relatórios
+</a>
+{% endblock %}

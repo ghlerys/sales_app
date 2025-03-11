@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Nova Venda{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Adicionar Nova Venda</h1>
+    <form action="/novavenda" method="post" class="form-container">
+        <div class="form-group">
+            <label for="cliente_id">Cliente:</label>
+            <select name="cliente_id" id="cliente_id" required>
+                {% for cliente in clientes %}
+                <option value="{{ cliente.id }}" data-tipo="{{ cliente.tipo }}">{{ cliente.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="item_id">Item:</label>
+            <select name="item_id" id="item_id" required>
+                {% for item in estoque %}
+                <option value="{{ item.id }}" data-preco-vip1="{{ item.preco_venda_vip1 }}" data-preco-vip2="{{ item.preco_venda_vip2 }}" data-preco-comum="{{ item.preco_venda_comum }}">{{ item.produto }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" name="quantidade" id="quantidade" required>
+        </div>
+        <div class="form-group">
+            <label for="data_venda">Data da Venda:</label>
+            <input type="date" name="data_venda" required>
+        </div>
+        <div class="form-group">
+            <label for="valor">Valor:</label>
+            <input type="number" step="0.01" name="valor" id="valor" readonly>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Salvar" class="btn-submit">
+        </div>
+    </form>
+    <div class="back-link">
+        <a href="/" class="btn-back">Voltar ao Início</a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const clienteSelect = document.querySelector('select[name="cliente_id"]');
+    const itemSelect = document.querySelector('select[name="item_id"]');
+    const quantidadeInput = document.querySelector('input[name="quantidade"]');
+    const valorInput = document.querySelector('input[name="valor"]');
+
+    function calcularValor() {
+        const clienteTipo = clienteSelect.options[clienteSelect.selectedIndex].getAttribute('data-tipo');
+        const itemPrecoVip1 = parseFloat(itemSelect.options[itemSelect.selectedIndex].getAttribute('data-preco-vip1'));
+        const itemPrecoVip2 = parseFloat(itemSelect.options[itemSelect.selectedIndex].getAttribute('data-preco-vip2'));
+        const itemPrecoComum = parseFloat(itemSelect.options[itemSelect.selectedIndex].getAttribute('data-preco-comum'));
+        const quantidade = parseFloat(quantidadeInput.value);
+
+        let precoUnitario;
+        if (clienteTipo === 'VIP1') {
+            precoUnitario = itemPrecoVip1;
+        } else if (clienteTipo === 'VIP2') {
+            precoUnitario = itemPrecoVip2;
+        } else {
+            precoUnitario = itemPrecoComum;
+        }
+
+        const valor = precoUnitario * quantidade;
+        valorInput.value = valor.toFixed(2);
+    }
+
+    clienteSelect.addEventListener('change', calcularValor);
+    itemSelect.addEventListener('change', calcularValor);
+    quantidadeInput.addEventListener('input', calcularValor);
+});
+</script>
+{% endblock %}

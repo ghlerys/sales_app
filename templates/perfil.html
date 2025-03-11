@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Perfil do Usuário</h1>
+    <div class="profile-info">
+        <p><strong>Nome de Usuário:</strong> {{ session['username'] }}</p>
+        <p><strong>Função:</strong> {{ session['role'] }}</p>
+    </div>
+    <div class="profile-actions">
+        <a href="{{ url_for('alterar_senha') }}" class="btn-profile">Alterar Senha</a>
+    </div>
+</div>
+{% endblock %}

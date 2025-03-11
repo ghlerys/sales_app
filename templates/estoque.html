@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Estoque{% endblock %}
+
+{% block content %}
+<h1>Estoque</h1>
+
+<h2>Lista de Itens</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Produto</th>
+        <th>Quantidade</th>
+        <th>Preço de Compra</th>
+        <th>Preço de Venda (VIP1)</th>
+        <th>Preço de Venda (VIP2)</th>
+        <th>Preço de Venda (COMUM)</th>
+        <th>Ações</th>
+    </tr>
+    {% for item in estoque %}
+    <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.produto }}</td>
+        <td>{{ item.quantidade }}</td>
+        <td>{{ item.preco_compra }}</td>
+        <td>{{ item.preco_venda_vip1 }}</td>
+        <td>{{ item.preco_venda_vip2 }}</td>
+        <td>{{ item.preco_venda_comum }}</td>
+        <td>
+            {% if session.role == 'admin' %}
+            <form action="/editaritem/{{ item.id }}" method="post" style="display:inline;">
+                <input type="text" name="produto" value="{{ item.produto }}" required>
+                <input type="number" name="quantidade" value="{{ item.quantidade }}" required>
+                <input type="number" step="0.01" name="preco_compra" value="{{ item.preco_compra }}" required>
+                <input type="number" step="0.01" name="preco_venda_vip1" value="{{ item.preco_venda_vip1 }}" required>
+                <input type="number" step="0.01" name="preco_venda_vip2" value="{{ item.preco_venda_vip2 }}" required>
+                <input type="number" step="0.01" name="preco_venda_comum" value="{{ item.preco_venda_comum }}" required>
+                <input type="submit" value="Salvar">
+            </form>
+            <form action="/excluiritem/{{ item.id }}" method="post" style="display:inline;">
+                <input type="submit" value="Excluir">
+            </form>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<p></p><a href="/novoitem">Novo Item</a>
+{% endblock %}

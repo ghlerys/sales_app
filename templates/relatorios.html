@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Relatórios{% endblock %}
+
+{% block content %}
+<h1>Relatórios</h1>
+
+<ul>
+    
+        <div class="nav-card">
+            <a href="{{ url_for('relatorio_clientes') }}">
+                <img src="{{ url_for('static', filename='images/icons/clientes.png') }}" alt="Vendas">
+                Clientes
+            </a>
+        </div>
+    <div class="nav-card">
+        <a href="{{ url_for('relatorio_vendas') }}">
+            <img src="{{ url_for('static', filename='images/icons/relatorio-de-venda.png') }}" alt="Vendas">
+            Vendas
+        </a>
+    </div>
+    <div class="nav-card">
+        <a href="{{ url_for('relatorio_vendas_mes') }}">
+            <img src="{{ url_for('static', filename='images/icons/relatorio-anual.png') }}" alt="Vendas">
+            Vendas por Mês
+        </a>
+    </div>
+    <div class="nav-card">
+        <a href="{{ url_for('relatorio_tipos_clientes') }}">
+            <img src="{{ url_for('static', filename='images/icons/user-interface.png') }}" alt="Vendas">
+            Tipos Clientes
+        </a>
+    </div>
+</ul>
+{% endblock %}

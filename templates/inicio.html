@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Início{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Bem-vindo ao gerenciamento de vendas!</h1>
+    <div class="nav-cards">
+        <div class="nav-card">
+            <a href="{{ url_for('clientes') }}">
+                <img src="{{ url_for('static', filename='images/icons/cadastro.png') }}" alt="Cadastro">
+                Clientes
+            </a>
+        </div>
+        <div class="nav-card">
+            <a href="{{ url_for('novavenda') }}">
+                <img src="{{ url_for('static', filename='images/icons/vendas.png') }}" alt="Vendas">
+                Vendas
+            </a>
+        </div>
+        <div class="nav-card">
+            <a href="{{ url_for('relatorios') }}">
+                <img src="{{ url_for('static', filename='images/icons/relatorios.png') }}" alt="Relatórios">
+                Relatórios
+            </a>
+        </div>
+        <div class="nav-card">
+            <a href="{{ url_for('usuarios') }}">
+                <img src="{{ url_for('static', filename='images/icons/usuarios.png') }}" alt="Usuários">
+                Usuários
+            </a>
+        </div>
+        <div class="nav-card">
+            <a href="{{ url_for('estoque') }}">
+                <img src="{{ url_for('static', filename='images/icons/estoque.png') }}" alt="Estoque">
+                Estoque
+            </a>
+        </div>
+        <div class="nav-card">
+            <a href="{{ url_for('ajuda') }}">
+                <img src="{{ url_for('static', filename='images/icons/help.png') }}" alt="Ajuda">
+                Ajuda
+            </a>
+        </div>
+        <div class="nav-card">
+            <a href="{{ url_for('sair') }}">
+                <img src="{{ url_for('static', filename='images/icons/sair.png') }}" alt="Sair">
+                Sair
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Usuários{% endblock %}
+
+{% block content %}
+<h1>Usuários</h1>
+
+<h2>Lista de Usuários</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Ações</th>
+    </tr>
+    {% for usuario in usuarios %}
+    <tr>
+        <td>{{ usuario.id }}</td>
+        <td>{{ usuario.username }}</td>
+        <td>{{ usuario.role }}</td>
+        <td>
+            {% if session.role == 'admin' %}
+            <form action="/editarusuario/{{ usuario.id }}" method="post" style="display:inline;">
+                <input type="submit" value="Editar">
+            </form>
+            <form action="/excluirusuario/{{ usuario.id }}" method="post" style="display:inline;">
+                <input type="submit" value="Excluir">
+            </form>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<p></p><a href="/novousuario">Novo Usuário</a>
+{% endblock %}
