@@ -1,0 +1,30 @@
+Programa de Vendas/
+├── static/
+│   ├── js/
+│   │   └── scripts.js
+│   ├── css/
+│   │   └── styles.css
+│   └── images/
+│        └──icons
+├── templates/
+│   ├── ajuda.html
+│   ├── alterar_senha.html
+│   ├── base.html
+│   ├── clientes.html
+│   ├── def_cadastros.html
+│   ├── editarclientes.html
+│   ├── editaritem.html
+│   ├── editarvenda.html
+│   ├── novocliente.html
+│   ├── novoitem.html
+│   ├── novousuario.html
+│   ├── perfil.html
+│   ├── relatorio_clientes.html
+│   ├── relatorio_tipo_clientes.html
+│   ├── relatorio_vendas_mes.html
+│   ├── relatorio_vendas.html
+│   ├── relatorios.html
+│   ├── usuario.html
+│   └── sair.html
+├── app.py
+└── requirements.txt
